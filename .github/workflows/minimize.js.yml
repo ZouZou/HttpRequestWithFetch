@@ -16,7 +16,7 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.2.0
         with:
           ref: ${{ github.head_ref }}
           
