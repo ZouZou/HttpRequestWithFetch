@@ -4,10 +4,10 @@
 name: Minimize js file CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -17,11 +17,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
       - uses: actions/checkout@v2
-
+        with:
+          ref: ${{ github.head_ref }}
+          
       - name: Auto Minify
         uses: nizarmah/auto-minify@v2.1.1
         with:
-          overwrite: true
+          overwrite: false
+          output: 'mini_js'
 
       # Auto commits minified content to the existing files
       # Ignore it if you don't want to commit the files to the repository 
@@ -29,4 +32,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Github Action: Auto Minified JS and CSS files"
-          branch: "main"
+          
